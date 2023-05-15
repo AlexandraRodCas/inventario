@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registrar Proveedor</title>
+    <%- include("fragmentos/head") -%>
+</head>
+<header>
+    <%- include('../formularios/fragmentos/headerProveedores.ejs'); -%>
+</header>
+
+<body>
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Registrar Proveedor</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/registrarProveedor" , method="POST"
+                        onsubmit="return confirmacion();">
+                            <div class="form-group">
+                                <div style="color: darkgrey;">ID</div>
+                            <input type="text" name="id" placeholder="Ingrese el ID" class="form-control" pattern="[0-9]*" required/><br>
+                            </div>
+                            <div class="form-group">
+                                <div style="color: darkgrey;">Nombre</div>
+                            <input type="text" name="nombreProveedor" placeholder="Ingrese el nombre del proveedor" pattern="^[a-zA-Z ]+$" class="form-control" required/><br>
+                            </div>
+                            <div class="form-group">
+                                <div style="color: darkgrey;">Dirección</div>
+                            <input type="text" name="direc" placeholder="Ingrese la dirección" class="form-control" required/><br>
+                            </div>
+                            <div class="form-group">
+                                <div style="color: darkgrey;">Telefono</div>
+                            <input type="text" name="telefono" placeholder="Ingrese el número de telefono (10 Carac.)" class="form-control" pattern="[0-9]{10}" maxlength="10" required/><br>
+                            </div>
+                            <div class="form-group">
+                                <div style="color: darkgrey;">Email</div>
+                            <input type="text" name="email" placeholder="Ingrese el email" class="form-control" required/><br>
+                            </div>
+                            <div class="form-group">
+                                <div style="color: darkgrey;">Empresa</div>
+                            <input type="text" name="empresa" placeholder="Ingrese el nombre de la empresa" class="form-control" required/><br>
+                            </div>
+                            <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Registrar" /><br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javaScript">
+        function confirmacion(){
+            if(window.confirm("¿Estas seguro de querer registrar este proveedor?")){
+                window.alert("¡¡¡El proveedor ha sido registrado con exito!!!");
+                return true;
+                
+            }else{
+                return false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
