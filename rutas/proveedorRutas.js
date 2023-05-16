@@ -40,12 +40,8 @@ rutas.post('/registrarProveedor', async(req, res)=>{
 
 rutas.get('/registrar',requiresAuth(), async(req, res)=>{
     const list = await proveedores.find();
-    //if(list.length == 0){
-       //res.redirect('/consultar');
-    //}else{
-        res.render('registrar', {list, 
-            isAuthenticated: req.oidc.isAuthenticated()});
-    //}
+    res.render('registrar', {list, isAuthenticated: req.oidc.isAuthenticated()});
+
 });
 
 rutas.get('/editarProveedor',requiresAuth(), async(req, res)=>{
@@ -81,13 +77,14 @@ rutas.get('/actualizarProducto/:id', requiresAuth(),async(req, res)=>{
 rutas.put('/actualizarProducto/:id', async(req,res, next)=>{
     const id = req.params.id;
     var p = new producto(req.body);
-
+    var proveedor = await proveedores.findOne({productoProveedor:req.body.proveedor});
+    
     await producto.updateOne({id:id}, { $set:{nombreProducto: p.nombreProducto} });
     await producto.updateOne({id:id}, { $set:{precio: p.precio} });
     await producto.updateOne({id:id}, { $set:{cantidad: p.cantidad} });
-    await producto.updateOne({id:id}, { $set:{proveedor: p.proveedor} });
+    await producto.updateOne({id:id}, { $set:{proveedor: proveedor} });
 
-    res.redirect('/editarProductos');
+    res.redirect('/editarProducto');
 
 });
 
@@ -107,8 +104,7 @@ rutas.put('/actualizarProveedor/:id', async(req,res, next)=>{
     await proveedores.updateOne({id:id}, { $set:{telefono: p.telefono} });
     await proveedores.updateOne({id:id}, { $set:{email: p.email} });
     await proveedores.updateOne({id:id}, { $set:{empresa: p.empresa} });
-
-
+    
 
     res.redirect('/editarProveedor');
 

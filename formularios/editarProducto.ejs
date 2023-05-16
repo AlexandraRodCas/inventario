@@ -60,10 +60,12 @@ $(document).ready(function(){
             type:"POST",
             data:{id: post},
             success:function(response){
-                if(response.success == true){
+                if(window.confirm("¿Estás seguro de querer eliminar este proveedor?")){
                     $(obj).parent().parent().remove();
                 }else{
+                    
                 }
+                
             }
         })
     })

@@ -23,7 +23,7 @@ rutas.use(function(req, res, next){
 
 rutas.get('/consultarProductos', requiresAuth(), async(req, res)=>{
     const listaProductos = await producto.find().populate({path: 'proveedor', select:'nombreProveedor -_id'});
-    res.render("consultar",{listaProductos,
+    res.render("consultarProductos",{listaProductos,
         isAuthenticated: req.oidc.isAuthenticated(),
     });
     res.status(200).json();
@@ -35,9 +35,9 @@ rutas.post('/registrar', async(req, res)=>{
    var nombreProducto = req.body.nombreProducto;
    var precio = req.body.precio;
    var cantidad = req.body.cantidad;
-    var provedor = await proveedores.findOne({nombreProveedor:req.body.proveedor});
+    var proveedor = await proveedores.findOne({nombreProveedor:req.body.proveedor});
     console.log(provedor)
-   var p = new producto({'id':id, 'nombreProducto': nombreProducto, 'precio':precio, 'cantidad':cantidad, 'proveedor':provedor._id});
+   var p = new producto({'id':id, 'nombreProducto': nombreProducto, 'precio':precio, 'cantidad':cantidad, 'proveedor':proveedor._id});
     
     await producto.insertMany(p);
     res.redirect('/registrar');
@@ -50,9 +50,9 @@ rutas.delete('/editarProductos/:id', async(req,res, next)=>{
     res.redirect('/editarProductos')
 });
 
-rutas.get('/editarProductos', requiresAuth(),async(req,res)=>{
+rutas.get('/editarProducto', requiresAuth(),async(req,res)=>{
     const listaProductos = await producto.find().populate({path: 'proveedor', select:'nombreProveedor -_id'});
-    res.render("editarProductos",{listaProductos,
+    res.render("editarProducto",{listaProductos,
         isAuthenticated: req.oidc.isAuthenticated(),
     });
 
@@ -67,12 +67,6 @@ rutas.post('/eliminarProducto', async(req, res)=>{
     }
 });
 
-//rutas.get('/actualizar/:id',async(req,res)=>{
-  //  const id = req.params.id;
-    //console.log(id);
-    //const productodb = await producto.findOne({id:id}).exec();
-    //res.render("actualizarProducto",{productodb});
-//});
 
 
 rutas.get('/', requiresAuth(),async(req,res)=>{

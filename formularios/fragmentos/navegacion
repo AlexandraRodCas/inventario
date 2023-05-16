@@ -1,9 +1,0 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <ul>
-        <% if(!isAuthenticated) {%>
-            <li><a href="/login/"">Login</a></li>
-            <%}else{%>
-            <li><a href="/logout/"">LogOut</a></li>
-        <% } %>
-    </ul>
-</nav>
